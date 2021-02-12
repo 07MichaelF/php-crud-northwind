@@ -100,6 +100,10 @@
 .add {
   background-color: green !important;
 }
+
+.update {
+  background-color: rgb(190, 190, 0) !important;
+}
 /** Hide jGrowl when printing **/
 @media print {
   .jGrowl {

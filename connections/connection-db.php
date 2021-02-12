@@ -4,7 +4,7 @@
         'localhost',
         'root',
         '',
-        'prueba'
+        'northwind'
     );
 
     //if($connection){

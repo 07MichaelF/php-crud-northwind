@@ -1,6 +1,6 @@
 $(function () {
     $(".invalid-feedback").hide();
-    //$("#alert").hide();
+    let edit = false;
     fetchCategory();
 
     // SEARCH CHANGE TEXT
@@ -45,12 +45,15 @@ $(function () {
             const postCategory = {
                 name: $("#cat-name").val(),
                 description: $("#cat-description").val(),
+                id: $("#cat-id").val()
             };
-            $.post("add-category.php", postCategory, function (response) {
-                $.jGrowl(response, { life: 2500, theme: 'add' });
-
+            const url = edit === false ? 'add-category.php' : 'update-category.php';
+            $.post(url, postCategory, function (response) {
+                edit === false ? $.jGrowl(response, { life: 2500, theme: 'add' }) : $.jGrowl(response, { life: 2500, theme: 'update' });
+               // $.jGrowl(response, { life: 2500, theme: 'add' });
                 $("#form-cat").trigger("reset");
                 fetchCategory();
+                edit=false;
             });
         }
     });
@@ -73,7 +76,7 @@ $(function () {
                             <button class="edit btn btn-warning">
                                 <i class="fas fa-marker"></i>
                             </button>
-                            <button id="${category.Id}" class="delete btn btn-danger">
+                            <button class="delete btn btn-danger">
                                 <i class="far fa-trash-alt"></i>
                             </button>
                         </td>
@@ -124,15 +127,35 @@ $(function () {
     }
 
     $(document).on("click", ".delete", (e) => {
+        if (confirm('Are you sure you want to delete it?')) {
+            const element = $(this)[0].activeElement.parentElement.parentElement;
+            const id = $(element).attr("categoryId");
+            console.log(element);
+            $.post("delete-category.php", { id }, (response) => {
+
+                $.jGrowl(response, { life: 2500, theme: 'delete' });
+                fetchCategory();
+            });
+        }
+    });
+
+
+    $(document).on("click", ".edit", (e) => {
         //if (confirm('Are you sure you want to delete it?')) {
+        //e.preventDefault
+         
         const element = $(this)[0].activeElement.parentElement.parentElement;
-        const id = $(element).attr("categoryId");
-        $.post("delete-category.php", { id }, (response) => {
+        let id = $(element).attr("categoryId");
 
-            $.jGrowl(response, { life: 2500, theme: 'delete' });
-            fetchCategory();
+        $.post("single-category.php", {id}, (response) =>{
+            console.log(response);
+            let category = JSON.parse(response);
+            $('#cat-id').val(category.Id);
+            $('#cat-name').val(category.Name);
+            $('#cat-description').val(category.Description);
+            edit = true;
         });
-
-        //   }
+        e.preventDefault();
+        
     });
 });

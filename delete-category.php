@@ -3,11 +3,11 @@
         
     if(isset($_POST['id'])) {
         $id = $_POST['id'];
-        $query = "DELETE FROM categories WHERE categoryID = $id"; 
+        $query = "DELETE FROM categories WHERE CategoryID = $id"; 
         $result = mysqli_query($connection, $query);
       
         if (!$result) {
-          die('Query Failed.');
+          die('Query Failed.'. mysqli_error($connection));
           
         }
         echo "Task Deleted Successfully";  

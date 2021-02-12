@@ -8,12 +8,8 @@
 
     <link rel="stylesheet" type="text/css" href="styles/styles.css" />
     <link rel="stylesheet" type="text/css" href="styles/jquery.jgrowl.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
-      crossorigin="anonymous"
-    />
+    <link rel="stylesheet" type="text/css" href="styles/bootstrap.css" />
+
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
@@ -23,8 +19,13 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <a href="#" class="navbar-brand">Category</a>
+    <nav
+      class="navbar navbar-expand flex-column flex-md-row bd-navbar bg-light sticky-top"
+      style="backdrop-filter: blur(8px)"
+    >
+      <a class="navbar-brand mr-0 mr-md-2">
+        <img src="logo.png" width="80px" />
+      </a>
       <form class="form-inline">
         <input
           class="form-control mr-sm-2"
@@ -33,14 +34,16 @@
           placeholder="Search your Category"
           aria-label="Search"
         />
-        <button class="btn btn-secondary my-2 my-sm-0" type="submit">
-          Search
-        </button>
       </form>
     </nav>
     <!-- cat = Category -->
 
     <div class="container p-4">
+      <div class="row">
+        <div class="col col align-self-center">
+          <h1 class="display-4">Category CRUD</h1>
+        </div>
+      </div>
       <div class="row">
         <!-- SECTION FORM -->
         <div class="col-md-4">
@@ -53,6 +56,7 @@
                     id="cat-name"
                     placeholder="Category Name"
                     class="form-control"
+                    value=""
                   />
                   <div class="invalid-feedback">
                     Sorry, Obligatoried Field!!
@@ -70,7 +74,7 @@
                     Sorry, Obligatoried Field!!
                   </div>
                 </div>
-                <input type="hidden" id="categoryId" />
+                <input type="hidden" id="cat-id" />
                 <button
                   type="submit"
                   class="btn btn-primary btn-block text-center"
@@ -111,8 +115,8 @@
       crossorigin="anonymous"
     ></script>
 
+    <script src="app.js"></script>
     <script src="styles/jquery.js"></script>
     <script src="styles/jquery.jgrowl.js"></script>
-    <script src="app.js"></script>
   </body>
 </html>

@@ -4,10 +4,10 @@
     if(isset($_POST['name'])){
         $name = $_POST['name'];
         $descr = $_POST['description'];
-        $query = "INSERT INTO categories(categoryName, description) VALUES ('$name', '$descr')";
+        $query = "INSERT INTO categories(CategoryName, Description) VALUES ('$name', '$descr')";
         $result = mysqli_query($connection, $query);
         if(!$result){
-            die('Query Failed.');
+            die('Query Failed.'. mysqli_error($connection));
         }
         echo 'Category Added Successfully';
     }
