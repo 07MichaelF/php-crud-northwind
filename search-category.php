@@ -1,5 +1,5 @@
 <?php
-    include('connection-db.php');
+    include('connections/connection-db.php');
     
     $search = $_POST['search'];
 

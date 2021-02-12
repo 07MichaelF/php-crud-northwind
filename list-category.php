@@ -1,5 +1,5 @@
 <?php
-    include('connection-db.php');
+    include('connections/connection-db.php');
 
     $query = "SELECT * FROM categories";
     $result = mysqli_query($connection, $query);

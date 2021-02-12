@@ -1,5 +1,5 @@
 <?php
-    include('connection-db.php');
+    include('connections/connection-db.php');
 
     if(isset($_POST['name'])){
         $name = $_POST['name'];
