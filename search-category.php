@@ -20,9 +20,6 @@
 
         $jsonstring = json_encode($json);
         echo $jsonstring;
-
-        $_SESSION['message'] = 'Task Removed Successfully';
-        $_SESSION['message_type'] = 'danger';
     }
 
 ?>

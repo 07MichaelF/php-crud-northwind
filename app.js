@@ -1,6 +1,6 @@
 $(function () {
     $(".invalid-feedback").hide();
-    $("#alert-msg").hide();
+    //$("#alert").hide();
     fetchCategory();
 
     // SEARCH CHANGE TEXT
@@ -21,8 +21,12 @@ $(function () {
                         <td>${category.Name}</td>
                         <td>${category.Description}</td>
                         <td>
-                            <a>edit</a>
-                            <a>delete</a>
+                            <a class="btn btn-warning">
+                                <i class="fas fa-marker"></i>
+                            </a>
+                            <a class="btn btn-danger">
+                                <i class="far fa-trash-alt"></i>
+                            </a>
                         </td>
                     </tr>
                     `;
@@ -34,46 +38,24 @@ $(function () {
             fetchCategory();
         }
     });
-
     // ADD CATEGORY
     $("#form-cat").submit(function (e) {
+        e.preventDefault();
         if (checkTextBox()) {
-            console.log("Enviado..");
-            viewAlert('alert alert-darnger fade show')
+            const postCategory = {
+                name: $("#cat-name").val(),
+                description: $("#cat-description").val(),
+            };
+            $.post("add-category.php", postCategory, function (response) {
+                $.jGrowl(response, { life: 2500, theme: 'add' });
 
-            e.preventDefault();
-
-
-        } else {
-            e.preventDefault();
+                $("#form-cat").trigger("reset");
+                fetchCategory();
+            });
         }
-        /*
-            if(($('#cat-name').val()) && ($('#cat-description').val())){
-                console.log('Enviado..');
-                const postCategory = {
-                    name: $('#cat-name').val(),
-                    description: $('#cat-description').val()
-                };
-                $.post('add-category.php', postCategory, function (response) {
-                    fetchCategory();
-                    $('#form-cat').trigger('reset');
-                    $('#message').html(response);
-                })
-                
-                
-               e.preventDefault();
-                $('.invalid-feedback').hide();
-                $('#cat-name').removeClass('is-invalid')
-    
-            }else{
-                $('.invalid-feedback').show();
-                $('#cat-name').addClass('is-invalid')
-                e.preventDefault();
-            }
-            */
     });
 
-    // LIST CATEGORY
+    // List a category
     function fetchCategory() {
         $.ajax({
             url: "list-category.php",
@@ -83,13 +65,17 @@ $(function () {
                 let template = "";
                 categories.forEach((category) => {
                     template += `
-                    <tr >
+                    <tr categoryId="${category.Id}">
                         <td>${category.Id}</td>
                         <td>${category.Name}</td>
                         <td>${category.Description}</td>
                         <td>
-                            <a>edit</a>
-                            <a>delete</a>
+                            <button class="edit btn btn-warning">
+                                <i class="fas fa-marker"></i>
+                            </button>
+                            <button id="${category.Id}" class="delete btn btn-danger">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
                         </td>
                     </tr>
                     `;
@@ -137,13 +123,16 @@ $(function () {
         }
     }
 
-    //Show alert for each action
-    function viewAlert(type) {
+    $(document).on("click", ".delete", (e) => {
+        //if (confirm('Are you sure you want to delete it?')) {
+        const element = $(this)[0].activeElement.parentElement.parentElement;
+        const id = $(element).attr("categoryId");
+        $.post("delete-category.php", { id }, (response) => {
 
-        $("#alert-msg").addClass(type);
-        $("#alert-msg").fadeTo(2000, 500).slideUp(500, function () {
-            $("#alert-msg").slideUp(500);
+            $.jGrowl(response, { life: 2500, theme: 'delete' });
+            fetchCategory();
         });
 
-    }
+        //   }
+    });
 });

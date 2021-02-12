@@ -7,7 +7,13 @@
     <title>Document</title>
 
     <link rel="stylesheet" type="text/css" href="styles/styles.css" />
-    <link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="styles/jquery.jgrowl.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
@@ -37,7 +43,7 @@
     <div class="container p-4">
       <div class="row">
         <!-- SECTION FORM -->
-        <div class="col-md-5">
+        <div class="col-md-4">
           <div class="card">
             <div class="card-body">
               <form id="form-cat">
@@ -64,6 +70,7 @@
                     Sorry, Obligatoried Field!!
                   </div>
                 </div>
+                <input type="hidden" id="categoryId" />
                 <button
                   type="submit"
                   class="btn btn-primary btn-block text-center"
@@ -76,24 +83,19 @@
         </div>
 
         <!-- SECTION TABLE -->
-        <div class="col-md-7">
-          <table class="table table-hover table-sm">
-            <thead>
+        <div class="col-md-8">
+          <table id="table-category" class="table table-hover">
+            <thead class="table-bordered">
               <tr>
                 <td>ID</td>
                 <td>Name</td>
                 <td>Description</td>
-                <td>Actionss</td>
+                <td>Actions</td>
               </tr>
             </thead>
-            <tbody id="tb-category" class="table-light"></tbody>
+            <tbody id="tb-category" class="table-bordered"></tbody>
           </table>
-          <div id="alert-msg" class="alert alert-success fade show" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong>Well done!</strong> Successfully.
-          </div>
         </div>
-        
       </div>
     </div>
 
@@ -102,10 +104,15 @@
       integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
       crossorigin="anonymous"
     ></script>
-    <script src="app.js"></script>
+
     <script
-      src="https://kit.fontawesome.com/f61842ede7.js"
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
       crossorigin="anonymous"
     ></script>
+
+    <script src="styles/jquery.js"></script>
+    <script src="styles/jquery.jgrowl.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>
